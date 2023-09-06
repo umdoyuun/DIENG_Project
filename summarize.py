@@ -29,11 +29,11 @@ def summarize_audio(path):
 
     for i, text in enumerate(texts):
         if len(text) >= 1200:
-            cnt = 3
+            cnt = 5
         elif len(text) >= 500:
-            cnt = 2
+            cnt = 4
         else:
-            cnt = 1
+            cnt = 3
         body = {
             "document": {
                 "content": text
