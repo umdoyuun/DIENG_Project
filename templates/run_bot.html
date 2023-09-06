@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Run Bot</title>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&amp;display=swap" rel="stylesheet"/>
+<link href="styles.css" rel="stylesheet" type="text/css"/>
+<link href="/static/styles.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="container">
+    <p style="font-size: 7px; text-align: right; font-weight: bold;">{{ username }}님</p>
+    <h1>디스코드 요약봇</h1>
+    {{ bot_name|safe }}
+    <!-- Form to Start/Stop Bot -->    
+    <form action="/run_bot" method="post" style="display: inline-block; margin-right: 10px;">
+        <input type="hidden" name="flag" value="start">
+        <input type="submit" name="start_button" value="실행" style="font-size: 14.255px; width: 50px;">
+    </form>
+    <form action="/run_bot" method="post" style="display: inline-block;">
+        <input type="hidden" name="flag" value="end">
+        <input type="submit" value="종료" style="font-size: 14.255px; width: 50px;">
+    </form>
+    <br>
+    녹음 하기
+    <form action="/run_bot" method="post" style="display: inline-block;">
+        <input type="hidden" name="flag" value="rasp_start">
+        <input type="submit" value="▶" style="font-size: 14.255px; width: 50px;">
+    </form>
+    <form action="/run_bot" method="post" style="display: inline-block;">
+        <input type="hidden" name="flag" value="rasp_stop">
+        <input type="submit" value="■" style="font-size: 17px; width: 50px;">
+    </form>
+    
+    <!-- Form to Upload Audio File -->
+    <form action="/run_bot" method="post" enctype="multipart/form-data">
+        <label for="file">오디오 업로드</label>
+        <input type="file" id="file" name="file" accept=".wav">
+        <input type="hidden" name="flag" value="upload">
+        <input type="submit" value="업로드" style="font-size: 14.255px; width: 70px;">
+    </form>
+    </div>  
+    <!-- Load jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Your script -->
+<script type="text/javascript">
+    setTimeout(function() {
+        $('.flash').fadeOut('fast');
+    }, 3000); // 3 seconds = 3000 milliseconds
+</script>
+</body>
+</html>

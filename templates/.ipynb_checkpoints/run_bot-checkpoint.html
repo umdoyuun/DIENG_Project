@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Run Bot</title>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&amp;display=swap" rel="stylesheet"/>
+<link href="styles.css" rel="stylesheet" type="text/css"/>
+<link href="/static/styles.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="container">
+    <h1>디스코드 요약봇</h1>
+    
+    <!-- Form to Start/Stop Bot -->
+    <form action="/run_bot" method="post">
+        <label for="token">토큰 값:</label>
+        <input type="text" id="token" name="token">
+        <input type="hidden" name="flag" value="start">
+        <input type="submit" value="실행">
+                <input type="hidden" name="flag" value="end">
+        <input type="submit" value="종료">
+    </form>
+    
+    <!-- Form to Record Audio -->
+<!-- Form to Record Audio -->
+<form id="record-form" action="/run_bot" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="flag" value="record">
+    <input type="button" id="startRecord" value="녹음 시작">
+    <input type="button" id="stopRecord" value="녹음 정지" disabled>
+</form>
+
+<script>
+    // 녹음 로직 (Web API 사용)
+    let mediaRecorder;
+    let audioChunks = [];
+
+    navigator.mediaDevices.getUserMedia({ audio: true })
+    .then(stream => {
+        mediaRecorder = new MediaRecorder(stream);
+        mediaRecorder.ondataavailable = event => {
+            audioChunks.push(event.data);
+        };
+
+        mediaRecorder.onstop = async () => {
+            const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+
+            const formData = new FormData();
+            formData.append("audio_data", audioBlob, "recorded.wav");
+            formData.append("flag", "record");
+
+            const response = await fetch('/run_bot', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                alert('녹음이 완료되었습니다.');
+            } else {
+                alert('녹음에 실패하였습니다.');
+            }
+        };
+    });
+
+    document.getElementById("startRecord").addEventListener("click", function() {
+        audioChunks = [];  // 이전 녹음 데이터 초기화
+        mediaRecorder.start();
+        this.disabled = true;
+        document.getElementById("stopRecord").disabled = false;
+    });
+
+    document.getElementById("stopRecord").addEventListener("click", function() {
+        mediaRecorder.stop();
+        this.disabled = true;
+        document.getElementById("startRecord").disabled = false;
+    });
+</script>
+
+    
+    <!-- Form to Upload Audio File -->
+    <form action="/run_bot" method="post" enctype="multipart/form-data">
+        <label for="file">음성 파일을 올려주세요:</label>
+        <input type="file" id="file" name="file" accept=".wav">
+        <input type="hidden" name="flag" value="upload">
+        <input type="submit" value="음성 파일 올리기">
+    </form>
+    </div>  
+    <!-- Load jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Your script -->
+<script type="text/javascript">
+    setTimeout(function() {
+        $('.flash').fadeOut('fast');
+    }, 3000); // 3 seconds = 3000 milliseconds
+</script>
+</body>
+</html>

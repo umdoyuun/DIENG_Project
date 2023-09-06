@@ -1,0 +1,40 @@
+
+<!doctype html>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&amp;display=swap" rel="stylesheet"/>
+<link href="styles.css" rel="stylesheet" type="text/css"/>
+<link href="/static/styles.css" rel="stylesheet"/>
+  <title>Audio Files</title>
+</head>
+<body>
+<div class="container">
+  <h1>Uploaded Audio Files</h1>
+  <form action="/audio_list" method="post">
+    <label for="dateSelect">날짜를 선택해주세요:</label>
+    <select id="dateSelect" name="selected_date">
+      <option value="all">날짜</option>
+      {% for date in available_dates %}
+      <option value="{{ date }}">{{ date }}</option>
+      {% endfor %}
+    </select>
+    <button type="submit">Search</button>
+  </form>
+  <ul>
+          <a href="{{ url_for('static', filename=audio.filepath) }}">음성 파일</a>
+    </ul>
+</div>
+    
+    <!-- Load jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Your script -->
+<script type="text/javascript">
+    setTimeout(function() {
+        $('.flash').fadeOut('fast');
+    }, 3000); // 3 seconds = 3000 milliseconds
+</script>
+    
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Token Input</title>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&amp;display=swap" rel="stylesheet"/>
+<link href="styles.css" rel="stylesheet" type="text/css"/>
+<link href="/static/styles.css" rel="stylesheet"/></head>
+<body>
+<div class="container">
+<p style="font-size: 7px; text-align: right; font-weight: bold;">{{ username }}님</p>
+<h1>토큰 정보 입력</h1>
+<form action="/token_input" method="post">
+<label>디스코드 봇 이름: </label>
+<input name="bot_name" type="text" style="width: 50% "/><br/>
+<label>토큰 값: </label>
+<input name="token_value" type="text"style="width: 73% "/><br/>
+<button type="submit">다음</button>
+</form>
+</div>
+    
+    <!-- Load jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Your script -->
+<script type="text/javascript">
+    setTimeout(function() {
+        $('.flash').fadeOut('fast');
+    }, 3000); // 3 seconds = 3000 milliseconds
+</script>
+</body>
+</html>

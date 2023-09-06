@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>File Upload</title>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&amp;display=swap" rel="stylesheet"/>
+<link href="styles.css" rel="stylesheet" type="text/css"/>
+<link href="/static/styles.css" rel="stylesheet"/></head>
+<body>
+<div class="container">
+<h1>음성 파일 업로드</h1>
+<form action="/upload" enctype="multipart/form-data" method="post">
+<label>음성 파일: </label>
+<input accept="audio/*" name="audio_file" type="file"/><br/>
+<button type="submit">업로드</button>
+</form>
+</div>
+</body>
+</html>
