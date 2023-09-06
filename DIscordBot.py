@@ -5,6 +5,7 @@ import re
 import sqlite3
 import sys
 import datetime
+from Translate import translate_text
 
 #DB 켜기
 connection = sqlite3.connect('dic_sumbot.db')
@@ -19,10 +20,7 @@ intents.presences = True
 intents.message_content = True
 bot = commands.Bot(command_prefix='!', intents=intents)
 
-@bot.event
-async def on_close():
-    print(f'{bot.user.name}이 종료 됩니다.')
-    connection.close()
+
 
 # 디스코드 봇이 접속한 서버에서 가장 낮은 텍스트 채널을 찾는 함수
 def get_lowest_text_channel():
@@ -32,6 +30,11 @@ def get_lowest_text_channel():
             if lowest_channel is None or channel.id < lowest_channel.id:
                 lowest_channel = channel
     return lowest_channel
+
+@bot.event
+async def on_close():
+    print(f'{bot.user.name}이 종료 됩니다.')
+    connection.close()
 
 @bot.event
 async def on_ready():
@@ -58,13 +61,18 @@ async def on_message(message):
         if 1 <= int(month) <= 12 and 1 <= int(day) <= 31:
             current_year = datetime.datetime.now().year
             date = f"{int(month):02d}-{int(day):02d}"
-            print(date)
             cursor.execute('SELECT summarize FROM users WHERE token=? AND date LIKE ?',(TOKEN, f'%{date}%'))
             result = cursor.fetchall()
-            print(result)
             if result:
                 for i in range(len(result)):
                     msg = result[i][0]  # 각 레코드에서 필드를 추출합니다.
+                    if "번역" in content:
+                        if "중국어" in content:
+                            msg = translate_text(msg, "zh-cn")
+                        elif "일본어" in content:
+                            msg = translate_text(msg, "ja")
+                        elif "영어" in content:
+                            msg = translate_text(msg, "en")
                     await channel.send(msg)
                     print("디스코드 채널로 메시지 전송 완료:", msg)
             else:
