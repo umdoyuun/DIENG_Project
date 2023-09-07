@@ -51,6 +51,8 @@ async def on_ready():
 async def on_message(message):
     if message.author == bot.user:
         return
+    if message.author.bot:
+        return
     channel = message.channel
     content = message.content
     if "월" in content and "일" in content:
