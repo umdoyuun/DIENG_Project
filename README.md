@@ -41,6 +41,8 @@ stop 요청 시 녹음 중이던 WAV파일을 서버로 전송 후 녹음을 중
 
 
 ### III. 데이터 흐름도
+![flow차트-페이지-2 drawio](https://github.com/umdoyuun/DIENG_Project/assets/132773421/4d5a2727-45b4-4630-b88f-fdd3cef312f4)
+
 
 ### IV. 기술 스택
 ● Programming Language: Python
