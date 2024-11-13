@@ -10,8 +10,8 @@ def summarize_audio(path):
     #audio_path = 'received_audio.wav'
     #네이버 클로바 요약봇 api header
     headers = {
-        "X-NCP-APIGW-API-KEY-ID": "jh19pjvtf0",
-        "X-NCP-APIGW-API-KEY": "HeVGwkTQohOuVxBEFxJjpFxO4X6LbQOiFFcH8OU2",
+        "X-NCP-APIGW-API-KEY-ID": "API KEY ID",
+        "X-NCP-APIGW-API-KEY": "API KEY",
         "Content-Type": "application/json"
     }
 
